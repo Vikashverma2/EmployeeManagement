@@ -12,6 +12,8 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="DbContext\" />
+    <Folder Include="Services\Interface\" />
   </ItemGroup>
 
 </Project>
