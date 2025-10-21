@@ -1,10 +1,11 @@
 ﻿using EmployeeManagement.Models;
 using EmployeeManagement.MongoDb;
+using EmployeeManagement.Repositories.Interface;
 using MongoDB.Driver;
 
 namespace EmployeeManagement.Repositories
 {
-    public class DepartmentRepository
+    public class DepartmentRepository : IDepartmentRepository
     {
         private readonly IMongoCollection<Department> _department;
 
@@ -16,12 +17,13 @@ namespace EmployeeManagement.Repositories
         public async Task<Department> CreateDepartmentAsync(Department department)
         {
             await _department.InsertOneAsync(department);
-            return department;
-        }
+            return department;      
+        } 
 
-        public async Task<List<Department>> GetAllDepartmentsAsync()
+        public async Task<List<Department>> GetDepartmentAsync()
         {
-            return await _department.Find(dept => true).ToListAsync();
+            var getDepartment = await _department.Find(a => true).ToListAsync();
+            return getDepartment;
         }
 
         public async Task<Department?> GetDepartmentByIdAsync(string id)
@@ -32,6 +34,7 @@ namespace EmployeeManagement.Repositories
         public async Task<Department?> UpdateDepartmentAsync(string id, Department updatedDepartment)
         {
             var excitingDepartment = await _department.Find(dept => dept.Id == id).FirstOrDefaultAsync();
+
             excitingDepartment.Name = updatedDepartment.Name;
             await _department.ReplaceOneAsync(dept => dept.Id == id, excitingDepartment);
             return excitingDepartment;

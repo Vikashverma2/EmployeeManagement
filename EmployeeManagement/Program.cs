@@ -1,4 +1,6 @@
 using EmployeeManagement.MongoDb;
+using EmployeeManagement.Repositories;
+using EmployeeManagement.Repositories.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<DbContext>();
 builder.Services.Configure<DbConfig>(builder.Configuration.GetSection("MongodbConnection"));
+
+builder.Services.AddTransient<IDepartmentRepository, DepartmentRepository>();
+
+
 
 var app = builder.Build();
 
