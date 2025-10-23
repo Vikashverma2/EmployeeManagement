@@ -1,9 +1,10 @@
 ﻿using EmployeeManagement.Models;
 using EmployeeManagement.Repositories.Interface;
+using EmployeeManagement.Services.Interface;
 
 namespace EmployeeManagement.Services
 {
-    public class DepartmentService
+    public class DepartmentService : IDepartmentService
     {
         private readonly IDepartmentRepository _departmentRepository;
 
