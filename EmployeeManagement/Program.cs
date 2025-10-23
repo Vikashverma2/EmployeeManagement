@@ -13,6 +13,7 @@ builder.Services.AddSingleton<DbContext>();
 builder.Services.Configure<DbConfig>(builder.Configuration.GetSection("MongodbConnection"));
 
 builder.Services.AddTransient<IDepartmentRepository, DepartmentRepository>();
+builder.Services.AddTransient<IEmployeeRepository, EmployeeRepository>();
 
 
 

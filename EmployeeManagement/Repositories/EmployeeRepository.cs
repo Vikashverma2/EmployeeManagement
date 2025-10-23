@@ -1,9 +1,10 @@
 ﻿using EmployeeManagement.Models;
+using EmployeeManagement.Repositories.Interface;
 using MongoDB.Driver;
 
 namespace EmployeeManagement.Repositories
 {
-    public class EmployeeRepository
+    public class EmployeeRepository : IEmployeeRepository
     {
         private readonly IMongoCollection<Employee> _employee;
 
@@ -30,7 +31,7 @@ namespace EmployeeManagement.Repositories
             return await _employee.Find(emp => emp.Id == id).FirstOrDefaultAsync();
         }
 
-        public async Task<Employee?> UpdateEmployeeAsync(int id, Employee updatedEmployee)
+        public async Task<Employee?> UpdateEmployeeAsync(string id, Employee updatedEmployee)
         {
             var existingEmployee = await _employee.Find(emp => emp.Id == id).FirstOrDefaultAsync();
             if (existingEmployee == null)
@@ -44,6 +45,12 @@ namespace EmployeeManagement.Repositories
             await _employee.ReplaceOneAsync(emp => emp.Id == id, existingEmployee);
             return existingEmployee;
         }
+        public async Task<bool> DeleteEmployeeAsync(string id)
+        {
+            var delete = await _employee.DeleteOneAsync(id);
+            return delete.DeletedCount>0;
+        }
+
 
 
 
