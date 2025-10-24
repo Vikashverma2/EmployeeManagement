@@ -22,6 +22,7 @@ namespace EmployeeManagement.Services
 
             //  Check for duplicate department name
             var allDepartments = await _departmentRepository.GetDepartmentAsync();
+
             bool exists = allDepartments.Any(d => d.Name.ToLower() == department.Name.ToLower());
             if (exists)
                 throw new InvalidOperationException("Department with this name already exists.");
