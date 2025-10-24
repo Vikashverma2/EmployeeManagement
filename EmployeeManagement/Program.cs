@@ -17,6 +17,7 @@ builder.Services.Configure<DbConfig>(builder.Configuration.GetSection("MongodbCo
 builder.Services.AddTransient<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddTransient<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddTransient<IDepartmentService, DepartmentService>();
+builder.Services.AddTransient<IEmployeeService, EmployeeService>();
 
 
 

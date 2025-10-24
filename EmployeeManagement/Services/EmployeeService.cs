@@ -1,9 +1,10 @@
 ﻿using EmployeeManagement.Models;
 using EmployeeManagement.Repositories.Interface;
+using EmployeeManagement.Services.Interface;
 
 namespace EmployeeManagement.Services
 {
-    public class EmployeeService
+    public class EmployeeService : IEmployeeService
     {
         private readonly IEmployeeRepository _employeeRepository;
 
@@ -12,26 +13,32 @@ namespace EmployeeManagement.Services
             _employeeRepository = employeeRepository;
         }
 
-        public async Task<Employee> CreateEmployee(Employee employee)
+        // ✅ Create Employee
+        public async Task<Employee> CreateEmployeeAsync(Employee employee)
         {
             if (string.IsNullOrWhiteSpace(employee.FullName))
                 throw new ArgumentException("Employee name is required.");
 
-            // Check for duplicate employee name
+            if (string.IsNullOrWhiteSpace(employee.Email))
+                throw new ArgumentException("Employee email is required.");
+
+            // Check for duplicate email
             var allEmployees = await _employeeRepository.GetEmployeeAsync();
-            bool exists = allEmployees.Any(e => e.FullName.ToLower() == employee.FullName.ToLower());
+            bool exists = allEmployees.Any(e => e.Email.ToLower() == employee.Email.ToLower());
 
             if (exists)
-                throw new InvalidOperationException("Employee with this name already exists.");
+                throw new InvalidOperationException("Employee with this email already exists.");
 
             return await _employeeRepository.CreateEmployeeAsync(employee);
         }
 
+        // ✅ Get All Employees
         public async Task<List<Employee>> GetEmployeesAsync()
         {
             return await _employeeRepository.GetEmployeeAsync();
         }
 
+        // ✅ Get Employee by ID
         public async Task<Employee> GetEmployeeByIdAsync(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
@@ -44,6 +51,7 @@ namespace EmployeeManagement.Services
             return employee;
         }
 
+        // ✅ Update Employee
         public async Task<Employee> UpdateEmployeeAsync(string id, Employee updatedEmployee)
         {
             if (string.IsNullOrWhiteSpace(id))
@@ -57,11 +65,11 @@ namespace EmployeeManagement.Services
             existingEmployee.Email = updatedEmployee.Email;
             existingEmployee.Salary = updatedEmployee.Salary;
 
-            await _employeeRepository.UpdateEmployeeAsync(id, existingEmployee);
-            return existingEmployee;
+            return await _employeeRepository.UpdateEmployeeAsync(id, existingEmployee);
         }
 
-        public async Task DeleteEmployeeAsync(string id)
+        // ✅ Delete Employee
+        public async Task<bool> DeleteEmployeeAsync(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
                 throw new ArgumentException("Employee ID is required.");
@@ -70,7 +78,7 @@ namespace EmployeeManagement.Services
             if (existingEmployee == null)
                 throw new KeyNotFoundException("Employee not found.");
 
-            await _employeeRepository.DeleteEmployeeAsync(id);
+            return await _employeeRepository.DeleteEmployeeAsync(id);
         }
     }
 }
