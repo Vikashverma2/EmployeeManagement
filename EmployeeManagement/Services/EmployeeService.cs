@@ -13,9 +13,10 @@ namespace EmployeeManagement.Services
             _employeeRepository = employeeRepository;
         }
 
-        // ✅ Create Employee
+        
         public async Task<Employee> CreateEmployeeAsync(Employee employee)
         {
+
             if (string.IsNullOrWhiteSpace(employee.FullName))
                 throw new ArgumentException("Employee name is required.");
 
@@ -32,13 +33,13 @@ namespace EmployeeManagement.Services
             return await _employeeRepository.CreateEmployeeAsync(employee);
         }
 
-        // ✅ Get All Employees
+        
         public async Task<List<Employee>> GetEmployeesAsync()
-        {
+        {  
             return await _employeeRepository.GetEmployeeAsync();
         }
 
-        // ✅ Get Employee by ID
+        
         public async Task<Employee> GetEmployeeByIdAsync(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
@@ -51,7 +52,7 @@ namespace EmployeeManagement.Services
             return employee;
         }
 
-        // ✅ Update Employee
+     
         public async Task<Employee> UpdateEmployeeAsync(string id, Employee updatedEmployee)
         {
             if (string.IsNullOrWhiteSpace(id))
@@ -68,7 +69,7 @@ namespace EmployeeManagement.Services
             return await _employeeRepository.UpdateEmployeeAsync(id, existingEmployee);
         }
 
-        // ✅ Delete Employee
+      
         public async Task<bool> DeleteEmployeeAsync(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
