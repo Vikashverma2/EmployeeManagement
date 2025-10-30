@@ -1,4 +1,5 @@
 ﻿using EmployeeManagement.Models;
+using EmployeeManagement.MongoDb;
 using EmployeeManagement.Repositories.Interface;
 using MongoDB.Driver;
 
@@ -8,7 +9,7 @@ namespace EmployeeManagement.Repositories
     {
         private readonly IMongoCollection<Employee> _employee;
 
-        public EmployeeRepository(IMongoDatabase database)
+        public EmployeeRepository(DbContext database)
         {
             _employee = database.GetCollection<Employee>("Employees");
         }
