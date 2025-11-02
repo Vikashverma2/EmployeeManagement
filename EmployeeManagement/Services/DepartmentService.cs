@@ -16,7 +16,7 @@ namespace EmployeeManagement.Services
        
         public async Task<Department> CreateDepartmentAsync(Department department)
         {
-            //  Check for empty or null name
+           
             if (string.IsNullOrWhiteSpace(department.Name))
                 throw new ArgumentException("Department name is required.");
 
@@ -39,7 +39,7 @@ namespace EmployeeManagement.Services
      
         public async Task<Department> GetDepartmentByIdAsync(string id)
         {
-            //  Check if ID is empty
+            
             if (string.IsNullOrWhiteSpace(id))
                 throw new ArgumentException("Department ID is required.");
 
@@ -53,7 +53,7 @@ namespace EmployeeManagement.Services
         
         public async Task<Department> UpdateDepartmentAsync(string id, Department updatedDepartment)
         {
-            //  Check ID is valid
+           
             if (string.IsNullOrWhiteSpace(id))
                 throw new ArgumentException("Department ID is required.");
 
@@ -71,7 +71,7 @@ namespace EmployeeManagement.Services
    
         public async Task<bool> DeleteDepartmentAsync(string id)
         {
-            // Check ID is valid
+            
             if (string.IsNullOrWhiteSpace(id))
                 throw new ArgumentException("Department ID is required.");
 

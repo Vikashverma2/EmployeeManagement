@@ -17,7 +17,7 @@ namespace EmployeeManagement.Controllers
             _logger = logger;
         }
 
-        // ✅ Create Employee
+      
 
         [HttpPost]
         public async Task<IActionResult> CreateEmployee([FromBody] Employee employee)
@@ -47,7 +47,7 @@ namespace EmployeeManagement.Controllers
             }
         }
 
-        // ✅ Get All Employees
+   
         [HttpGet]
         public async Task<IActionResult> GetAllEmployees()
         {
@@ -63,7 +63,6 @@ namespace EmployeeManagement.Controllers
             }
         }
 
-        // ✅ Get Employee by ID
         [HttpGet("{id}")]
         public async Task<IActionResult> GetEmployeeById(string id)
         {
@@ -87,7 +86,7 @@ namespace EmployeeManagement.Controllers
             }
         }
 
-        // ✅ Update Employee
+        
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateEmployee(string id, [FromBody] Employee employee)
         {
@@ -114,7 +113,7 @@ namespace EmployeeManagement.Controllers
             }
         }
 
-        // ✅ Delete Employee
+      
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEmployee(string id)
