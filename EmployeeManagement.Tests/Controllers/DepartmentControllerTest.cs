@@ -48,6 +48,24 @@ namespace EmployeeManagement.Tests.Controllers
             Assert.Equal(2, returnDepartments.Count);
         }
 
+        [Fact]
+        public async Task CreateDepartment_InvalidModel_ReturnsBadRequest()
+        {
+            // Arrange
+            var input = new Department();
+            controller.ModelState.AddModelError("Name", "Required");
+
+            // Act
+            var result = await controller.CreateDepartment(input);
+
+            // Assert
+            Assert.IsType<BadRequestObjectResult>(result);
+
+            // Verify 
+            mockService.Verify(s => s.CreateDepartmentAsync(It.IsAny<Department>()), Times.Never);
+        }
+
+
 
 
 
