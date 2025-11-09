@@ -28,6 +28,29 @@ namespace EmployeeManagement.Tests.Controllers
             );
         }
 
+        [Fact]
+        public async Task GetAllDepartments_ReturnsOkResult_WithListOfDepartments()
+        {
+            // Arrange
+            var departments = new List<Department>
+            {
+                new Department { Id = "1", Name = "HR" },
+                new Department { Id = "2", Name = "IT" }
+            };
+            mockService.Setup(s => s.GetDepartmentsAsync())
+                       .ReturnsAsync(departments);
+            // Act
+            var result = await controller.GetAllDepartments();
+            // Assert
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var returnDepartments = Assert.IsType<List<Department>>(okResult.Value);
+
+            Assert.Equal(2, returnDepartments.Count);
+        }
+
+
+
+
 
 
     }
