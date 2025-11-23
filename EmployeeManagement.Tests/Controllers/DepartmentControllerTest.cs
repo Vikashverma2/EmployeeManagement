@@ -25,7 +25,7 @@ namespace EmployeeManagement.Tests.Controllers
         }
 
 
-        //  CREATE DEPARTMENT (POST)
+        //  CREATE DEPARTMENT
 
         [Fact]
         public async Task CreateDepartment_ValidInput_ReturnsCreated()
@@ -44,8 +44,9 @@ namespace EmployeeManagement.Tests.Controllers
             var dept = Assert.IsType<Department>(createdResult.Value);
             Assert.Equal("HR", dept.Name);
 
-            // Verify that the service was called once
-            _mockService.Verify(s => s.CreateDepartmentAsync(It.IsAny<Department>()), Times.Once);
+            // Verify 
+            _mockService.Verify();
+
         }
 
         [Fact]
@@ -60,7 +61,9 @@ namespace EmployeeManagement.Tests.Controllers
 
             // Assert
             Assert.IsType<BadRequestObjectResult>(result);
-            _mockService.Verify(s => s.CreateDepartmentAsync(It.IsAny<Department>()), Times.Never);
+
+            _mockService.Verify();
+            _mockService.VerifyNoOtherCalls();
         }
 
         [Fact]
@@ -74,6 +77,9 @@ namespace EmployeeManagement.Tests.Controllers
 
             var badRequest = Assert.IsType<BadRequestObjectResult>(result);
             Assert.Equal("Invalid input", badRequest.Value);
+
+            _mockService.Verify();
+
         }
 
         [Fact]
@@ -87,6 +93,9 @@ namespace EmployeeManagement.Tests.Controllers
 
             var conflict = Assert.IsType<ConflictObjectResult>(result);
             Assert.Equal("Duplicate department", conflict.Value);
+
+            _mockService.Verify();
+
         }
 
         [Fact]
@@ -100,6 +109,9 @@ namespace EmployeeManagement.Tests.Controllers
 
             var error = Assert.IsType<ObjectResult>(result);
             Assert.Equal(500, error.StatusCode);
+
+            _mockService.Verify();
+
         }
 
         // GET ALL DEPARTMENTS (GET)
@@ -120,6 +132,9 @@ namespace EmployeeManagement.Tests.Controllers
             var ok = Assert.IsType<OkObjectResult>(result);
             var data = Assert.IsType<List<Department>>(ok.Value);
             Assert.Equal(2, data.Count);
+
+            _mockService.Verify();
+
         }
 
         [Fact]
@@ -131,10 +146,13 @@ namespace EmployeeManagement.Tests.Controllers
 
             var error = Assert.IsType<ObjectResult>(result);
             Assert.Equal(500, error.StatusCode);
+
+            _mockService.Verify();
+
         }
 
 
-        // GET DEPARTMENT BY ID (GET /id)
+        // GET DEPARTMENT BY ID 
 
         [Fact]
         public async Task GetDepartmentById_Found_ReturnsOk()
@@ -147,6 +165,9 @@ namespace EmployeeManagement.Tests.Controllers
             var ok = Assert.IsType<OkObjectResult>(result);
             var data = Assert.IsType<Department>(ok.Value);
             Assert.Equal("HR", data.Name);
+
+            _mockService.Verify();
+
         }
 
         [Fact]
@@ -158,6 +179,9 @@ namespace EmployeeManagement.Tests.Controllers
 
             var notFound = Assert.IsType<NotFoundObjectResult>(result);
             Assert.Contains("not found", notFound.Value.ToString());
+
+            _mockService.Verify();
+
         }
 
         [Fact]
@@ -169,6 +193,9 @@ namespace EmployeeManagement.Tests.Controllers
             var result = await _controller.GetDepartmentById("invalid");
 
             Assert.IsType<BadRequestObjectResult>(result);
+
+            _mockService.Verify();
+
         }
 
         [Fact]
@@ -181,10 +208,13 @@ namespace EmployeeManagement.Tests.Controllers
 
             var error = Assert.IsType<ObjectResult>(result);
             Assert.Equal(500, error.StatusCode);
+
+            _mockService.Verify();
+
         }
 
 
-        // UPDATE DEPARTMENT (PUT)
+        // UPDATE DEPARTMENT 
 
         [Fact]
         public async Task UpdateDepartment_Valid_ReturnsOk()
@@ -197,6 +227,9 @@ namespace EmployeeManagement.Tests.Controllers
             var ok = Assert.IsType<OkObjectResult>(result);
             var dept = Assert.IsType<Department>(ok.Value);
             Assert.Equal("Finance", dept.Name);
+
+            _mockService.Verify();
+
         }
 
         [Fact]
@@ -209,6 +242,9 @@ namespace EmployeeManagement.Tests.Controllers
 
             var notFound = Assert.IsType<NotFoundObjectResult>(result);
             Assert.Contains("not found", notFound.Value.ToString());
+
+            _mockService.Verify();
+
         }
 
         [Fact]
@@ -219,6 +255,9 @@ namespace EmployeeManagement.Tests.Controllers
             var result = await _controller.UpdateDepartment("1", new Department());
 
             Assert.IsType<BadRequestObjectResult>(result);
+
+            _mockService.Verify();
+            _mockService.VerifyNoOtherCalls();
         }
 
         [Fact]
@@ -231,6 +270,9 @@ namespace EmployeeManagement.Tests.Controllers
             var result = await _controller.UpdateDepartment("1", input);
 
             Assert.IsType<BadRequestObjectResult>(result);
+
+            _mockService.Verify();
+
         }
 
         [Fact]
@@ -244,9 +286,13 @@ namespace EmployeeManagement.Tests.Controllers
 
             var error = Assert.IsType<ObjectResult>(result);
             Assert.Equal(500, error.StatusCode);
+
+            _mockService.Verify();
+
+
         }
 
-        // DELETE DEPARTMENT (DELETE)
+        // DELETE DEPARTMENT
 
         [Fact]
         public async Task DeleteDepartment_Success_ReturnsNoContent()
@@ -256,6 +302,9 @@ namespace EmployeeManagement.Tests.Controllers
             var result = await _controller.DeleteDepartment("1");
 
             Assert.IsType<NoContentResult>(result);
+
+            _mockService.Verify();
+
         }
 
         [Fact]
@@ -267,6 +316,9 @@ namespace EmployeeManagement.Tests.Controllers
 
             var notFound = Assert.IsType<NotFoundObjectResult>(result);
             Assert.Contains("not found", notFound.Value.ToString());
+
+            _mockService.Verify();
+
         }
 
         [Fact]
@@ -278,6 +330,9 @@ namespace EmployeeManagement.Tests.Controllers
             var result = await _controller.DeleteDepartment("bad");
 
             Assert.IsType<BadRequestObjectResult>(result);
+
+            _mockService.Verify();
+
         }
 
         [Fact]
@@ -290,6 +345,9 @@ namespace EmployeeManagement.Tests.Controllers
 
             var error = Assert.IsType<ObjectResult>(result);
             Assert.Equal(500, error.StatusCode);
+
+            _mockService.Verify();
+
         }
     }
 }
