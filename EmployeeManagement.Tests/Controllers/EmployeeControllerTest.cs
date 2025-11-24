@@ -76,7 +76,7 @@ namespace EmployeeManagement.Tests.Controllers
             var conflict = Assert.IsType<ConflictObjectResult>(result);
             Assert.Equal("Duplicate", conflict.Value);
 
-
+            _mockService.Verify();
         }
 
         [Fact]
@@ -89,6 +89,8 @@ namespace EmployeeManagement.Tests.Controllers
 
             var error = Assert.IsType<ObjectResult>(result);
             Assert.Equal(500, error.StatusCode);
+
+            _mockService.Verify();
         }
 
         [Fact]
@@ -101,6 +103,8 @@ namespace EmployeeManagement.Tests.Controllers
 
             var ok = Assert.IsType<OkObjectResult>(result);
             Assert.IsType<List<Employee>>(ok.Value);
+
+            _mockService.Verify();
         }
 
         [Fact]
@@ -113,6 +117,8 @@ namespace EmployeeManagement.Tests.Controllers
 
             var error = Assert.IsType<ObjectResult>(result);
             Assert.Equal(500, error.StatusCode);
+
+            _mockService.Verify();
         }
 
         [Fact]
@@ -125,6 +131,8 @@ namespace EmployeeManagement.Tests.Controllers
 
             var ok = Assert.IsType<OkObjectResult>(result);
             Assert.IsType<Employee>(ok.Value);
+
+            _mockService.Verify();
         }
 
         [Fact]
@@ -135,6 +143,8 @@ namespace EmployeeManagement.Tests.Controllers
             var result = await _controller.GetEmployeeById("1");
 
             Assert.IsType<NotFoundObjectResult>(result);
+
+            _mockService.Verify();
         }
 
         [Fact]
@@ -147,6 +157,8 @@ namespace EmployeeManagement.Tests.Controllers
 
             var bad = Assert.IsType<BadRequestObjectResult>(result);
             Assert.Equal("Invalid id", bad.Value);
+
+            _mockService.Verify();
         }
 
         [Fact]
@@ -158,6 +170,8 @@ namespace EmployeeManagement.Tests.Controllers
             var result = await _controller.GetEmployeeById("1");
 
             Assert.Equal(500, (result as ObjectResult)?.StatusCode);
+
+            _mockService.Verify();
         }
 
         [Fact]
@@ -170,6 +184,8 @@ namespace EmployeeManagement.Tests.Controllers
 
             var ok = Assert.IsType<OkObjectResult>(result);
             Assert.IsType<Employee>(ok.Value);
+
+            _mockService.Verify();
         }
 
         [Fact]
@@ -180,6 +196,8 @@ namespace EmployeeManagement.Tests.Controllers
             var result = await _controller.UpdateEmployee("1", new Employee());
 
             Assert.IsType<BadRequestObjectResult>(result);
+
+            _mockService.Verify();
         }
 
         [Fact]
@@ -191,6 +209,8 @@ namespace EmployeeManagement.Tests.Controllers
             var result = await _controller.UpdateEmployee("1", new Employee());
 
             Assert.IsType<NotFoundObjectResult>(result);
+
+            _mockService.Verify();
         }
 
         [Fact]
@@ -203,6 +223,8 @@ namespace EmployeeManagement.Tests.Controllers
 
             var bad = Assert.IsType<BadRequestObjectResult>(result);
             Assert.Equal("Invalid update", bad.Value);
+
+            _mockService.Verify();
         }
 
         [Fact]
@@ -214,6 +236,8 @@ namespace EmployeeManagement.Tests.Controllers
             var result = await _controller.UpdateEmployee("1", new Employee());
 
             Assert.Equal(500, (result as ObjectResult)?.StatusCode);
+
+            _mockService.Verify();
         }
 
 
@@ -225,6 +249,8 @@ namespace EmployeeManagement.Tests.Controllers
             var result = await _controller.DeleteEmployee("1");
 
             Assert.IsType<NoContentResult>(result);
+
+            _mockService.Verify();
         }
 
         [Fact]
@@ -235,6 +261,8 @@ namespace EmployeeManagement.Tests.Controllers
             var result = await _controller.DeleteEmployee("1");
 
             Assert.IsType<NotFoundObjectResult>(result);
+
+            _mockService.Verify();
         }
 
         [Fact]
@@ -247,6 +275,8 @@ namespace EmployeeManagement.Tests.Controllers
 
             var bad = Assert.IsType<BadRequestObjectResult>(result);
             Assert.Equal("Invalid delete", bad.Value);
+
+            _mockService.Verify();
         }
 
         [Fact]
@@ -258,6 +288,8 @@ namespace EmployeeManagement.Tests.Controllers
             var result = await _controller.DeleteEmployee("1");
 
             Assert.Equal(500, (result as ObjectResult)?.StatusCode);
+
+            _mockService.Verify();
         }
     }
 }
